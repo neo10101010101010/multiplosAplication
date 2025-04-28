@@ -1,19 +1,23 @@
+// Contenedor principal para los múltiplos, con padding y fondo suave
 .multiplos-container {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-  }
-  
-  h1 {
+}
+
+// Estilo para el título principal
+h1 {
     color: #333;
-  }
-  
-  ul {
+}
+
+// Elimina los estilos de lista por defecto y quita el padding
+ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  li {
+}
+
+// Estilo para los elementos de la lista de múltiplos
+li {
     margin: 5px 0;
     font-size: 18px;
-  }
+}

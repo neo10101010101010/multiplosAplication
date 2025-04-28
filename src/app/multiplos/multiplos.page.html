@@ -3,15 +3,24 @@
     <ion-title>Calculadora de Múltiplos</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<!-- Contenido principal de la página de múltiplos -->
 <ion-content class="ion-padding">
+  <!-- Entrada de número: campo para que el usuario ingrese un número -->
   <ion-item>
     <ion-label position="floating">Ingresa un número</ion-label>
     <ion-input type="number" [(ngModel)]="numero"></ion-input>
   </ion-item>
+  
+  <!-- Botón de cálculo: al hacer clic, se ejecuta la función calcularMultiplos() -->
   <ion-button expand="full" (click)="calcularMultiplos()">Calcular Múltiplos</ion-button>
+  
+  <!-- Resultados: se muestran solo si el número es definido y mayor o igual a 0 -->
   <div *ngIf="numero !== undefined && numero >= 0">
     <h2>Resultado:</h2>
+    <!-- Listado de múltiplos: recorre los divisores y muestra los resultados -->
     <div *ngFor="let divisor of [3, 5, 7]">
+      <!-- El color del texto depende del divisor: verde para 3, rojo para 5, azul para 7 -->
       <p [style.color]="divisor === 3 ? 'green' : divisor === 5 ? 'red' : 'blue'">
         {{ numero }} [{{ divisor }}] ({{ multiples[divisor].join(', ') }})
       </p>

@@ -5,31 +5,31 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Entrada de número -->
+  <!-- Entrada de número: campo para que el usuario ingrese un número -->
   <ion-item>
     <ion-label position="floating">Ingresa un número</ion-label>
     <ion-input type="number" [(ngModel)]="numero"></ion-input>
   </ion-item>
 
-  <!-- Botón de cálculo -->
+  <!-- Botón de cálculo: al hacer clic, se ejecuta la función calcularMultiplos() -->
   <ion-button expand="full" (click)="calcularMultiplos()">
     Calcular Múltiplos
   </ion-button>
 
-  <!-- Resultados -->
+  <!-- Resultados: se muestran solo si el número es definido y mayor o igual a 0 -->
   <div *ngIf="numero !== undefined && numero >= 0">
     <h2>Resultado para {{ numero }}:</h2>
     
-    <!-- Listado de múltiplos -->
-    <!-- Listado de múltiplos -->
-<div *ngFor="let multipleType of multiplesTypes">
-  <p [style.color]="
-    multipleType === 'multiples3' ? 'green' : 
-    multipleType === 'multiples5' ? 'red' : 
-    'blue'">
-    Múltiplos de {{ multipleType.replace('multiples', '') }}: 
-    {{ multiples[multipleType].join(', ') || 'Ninguno' }}
-  </p>
-</div>
+    <!-- Listado de múltiplos: recorre los tipos de múltiplos y muestra los resultados -->
+    <div *ngFor="let multipleType of multiplesTypes">
+      <!-- El color del texto depende del tipo de múltiplo: verde para 3, rojo para 5, azul para otros -->
+      <p [style.color]="
+        multipleType === 'multiples3' ? 'green' : 
+        multipleType === 'multiples5' ? 'red' : 
+        'blue'">
+        Múltiplos de {{ multipleType.replace('multiples', '') }}: 
+        {{ multiples[multipleType].join(', ') || 'Ninguno' }}
+      </p>
+    </div>
   </div>
 </ion-content>

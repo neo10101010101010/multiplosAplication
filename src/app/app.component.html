@@ -1,3 +1,35 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Calculadora de Múltiplos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Entrada de número -->
+  <ion-item>
+    <ion-label position="floating">Ingresa un número</ion-label>
+    <ion-input type="number" [(ngModel)]="numero"></ion-input>
+  </ion-item>
+
+  <!-- Botón de cálculo -->
+  <ion-button expand="full" (click)="calcularMultiplos()">
+    Calcular Múltiplos
+  </ion-button>
+
+  <!-- Resultados -->
+  <div *ngIf="numero !== undefined && numero >= 0">
+    <h2>Resultado para {{ numero }}:</h2>
+    
+    <!-- Listado de múltiplos -->
+    <!-- Listado de múltiplos -->
+<div *ngFor="let multipleType of multiplesTypes">
+  <p [style.color]="
+    multipleType === 'multiples3' ? 'green' : 
+    multipleType === 'multiples5' ? 'red' : 
+    'blue'">
+    Múltiplos de {{ multipleType.replace('multiples', '') }}: 
+    {{ multiples[multipleType].join(', ') || 'Ninguno' }}
+  </p>
+</div>
+  </div>
+</ion-content>

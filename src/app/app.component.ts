@@ -10,8 +10,30 @@ import { DbService } from './services/db.service';
   standalone: false,
 })
 export class AppComponent {
+  // Nueva variable para el tema oscuro
+  darkMode = false;
+
   // Inyección del servicio de base de datos en el constructor
-  constructor(private dbService: DbService) {}
+  constructor(private dbService: DbService) {
+    // Cargar configuración al iniciar
+    this.cargarConfiguracion();
+  }
+
+  // Método para cargar configuración
+  cargarConfiguracion() {
+    this.dbService.getRealtimeDataSafe('/config/appSettings')
+      .subscribe(config => {
+        if (config) {
+          this.darkMode = config.darkMode || false;
+          this.aplicarTema();
+        }
+      });
+  }
+
+  // Aplicar tema visual
+  aplicarTema() {
+    document.body.classList.toggle('dark-theme', this.darkMode);
+  }
 
   // Variable para guardar el número ingresado por el usuario
   numero: any;
@@ -38,9 +60,7 @@ export class AppComponent {
 
   // Función que calcula los múltiplos de 3, 5 y 7 hasta el número ingresado
   calcularMultiplos() {
-    // Solo calcula si el número es válido y mayor o igual a 0
     if (this.numero !== undefined && this.numero >= 0) {
-      // Reinicia los arreglos de múltiplos
       this.multiples = { multiples3: [], multiples5: [], multiples7: [] };
 
       // Recorre todos los números desde 1 hasta el número ingresado
@@ -52,16 +72,25 @@ export class AppComponent {
         // Si el número es múltiplo de 7, lo agrega al arreglo correspondiente
         if (i % 7 === 0) this.multiples.multiples7.push(i);
       }
-      
-      // Guarda la petición y los resultados en la base de datos usando el servicio
-      this.dbService.saveRequest(this.numero, this.multiples)
-        .subscribe({
-          next: () => console.log('Guardado exitoso'), // Mensaje si se guarda bien
-          error: (err) => console.error('Error al guardar:', err) // Mensaje si hay error
-        });
+
+      // Guardar en Realtime Database
+      this.dbService.saveRealtimeDataSafe(`/calculos/${Date.now()}`, {
+        numero: this.numero,
+        multiples: this.multiples
+      }).subscribe(() => console.log('Guardado seguro exitoso'));
     } else {
       // Si el número no es válido, reinicia los arreglos de múltiplos
       this.multiples = { multiples3: [], multiples5: [], multiples7: [] };
     }
+  }
+
+  // Método para alternar el tema oscuro
+  toggleTema() {
+    this.darkMode = !this.darkMode;
+    this.dbService.updateRealtimeData('/config/appSettings', {
+      darkMode: this.darkMode
+    }).subscribe(() => {
+      this.aplicarTema();
+    });
   }
 }

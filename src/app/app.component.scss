@@ -4,6 +4,15 @@
     background-color: #f9f9f9;
     border-radius: 8px;
 }
+.dark-theme {
+    --ion-background-color: #1a1a1a;
+    --ion-text-color: #ffffff;
+  
+    ion-toolbar.dark {
+      --background: #2a2a2a;
+      --color: #ffffff;
+    }
+  }
 
 // Estilo para el título principal
 h1 {

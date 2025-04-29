@@ -1,10 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [class.dark]="darkMode">
     <ion-title>Calculadora de Múltiplos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleTema()">
+        <ion-icon [name]="darkMode ? 'moon' : 'sunny'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content [class.dark-theme]="darkMode">
   <!-- Entrada de número: campo para que el usuario ingrese un número -->
   <ion-item>
     <ion-label position="floating">Ingresa un número</ion-label>
